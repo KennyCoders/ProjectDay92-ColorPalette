@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--
+    Photon by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Photon by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="static/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
+    <style>
+        /* Custom style to make the footer shorter */
+        #footer {
+            padding: 1em 0; /* Adjust this value to make the footer shorter */
+        }
+
+        #footer .icons {
+            margin-bottom: 0.5em; /* Adjust this value to make the footer shorter */
+        }
+
+        #footer .copyright {
+            font-size: 0.75em; /* Optional: Adjust font size to fit better */
+        }
+
+        .color-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border: 1px solid #000; /* Black border around each color box */
+        }
+    </style>
+</head>
+<body class="is-preload">
+
+<!-- Header -->
+<section id="header">
+    <div class="inner">
+        <span class="icon solid major fa-cloud"></span>
+        <h1><strong>Let's find the color palette</strong><br /></h1>
+        <p>Choose a picture to upload and see the top 10 used colors in it.<br /></p>
+        <form method="post" enctype="multipart/form-data" id="uploadForm">
+            <input type="file" name="file" id="fileInput" accept="image/*" style="display: none;">
+            <label for="fileInput" class="button">Choose File</label>
+        </form>
+    </div>
+</section>
+
+<!-- One -->
+<section id="one" class="main style1">
+    <div class="container">
+        <div class="row gtr-150">
+            <div class="col-6 col-12-medium">
+                <header class="major">
+                    <h2> The top 10 used colors : <br /></h2>
+                </header>
+                <p>
+                    {% for color in top_colors %}
+                        <span class="color-box" style="background-color:rgb({{ color[0][0] }}, {{ color[0][1] }}, {{ color[0][2] }});"></span>
+                        RGB{{ color[0][0] }}, {{ color[0][1] }}, {{ color[0][2] }} (Count: {{ color[1] }})<br>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="col-6 col-12-medium imp-medium">
+                <span class="image fit"><img src="{{ image_url }}" alt="" id="uploadedImage" /></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<section id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+        <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+        <li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+    </ul>
+</section>
+
+<!-- Scripts -->
+<script src="static/assets/js/jquery.min.js"></script>
+<script src="static/assets/js/jquery.scrolly.min.js"></script>
+<script src="static/assets/js/browser.min.js"></script>
+<script src="static/assets/js/breakpoints.min.js"></script>
+<script src="static/assets/js/util.js"></script>
+<script src="static/assets/js/main.js"></script>
+<script>
+    document.getElementById('fileInput').addEventListener('change', function() {
+        document.getElementById('uploadForm').submit();
+    });
+</script>
+
+</body>
+</html>

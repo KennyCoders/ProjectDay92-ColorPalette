@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<!--
+    Photon by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Upload Image - Photon</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="static/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Header -->
+<section id="header">
+    <div class="inner">
+        <span class="icon solid major fa-cloud"></span>
+        <h1><strong>Upload an Image</strong><br /></h1>
+        <p>Upload an image to see its color palette.<br /></p>
+    </div>
+</section>
+
+<!-- One -->
+<section id="one" class="main style1">
+    <div class="container">
+        <div class="row gtr-150">
+            <div class="col-12">
+                <input id="fileInput" type="file" accept="image/*" required>
+                <button id="uploadButton">Upload</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="static/assets/js/jquery.min.js"></script>
+<script src="static/assets/js/jquery.scrolly.min.js"></script>
+<script src="static/assets/js/browser.min.js"></script>
+<script src="static/assets/js/breakpoints.min.js"></script>
+<script src="static/assets/js/util.js"></script>
+<script src="static/assets/js/main.js"></script>
+<script>
+    document.getElementById('uploadButton').addEventListener('click', function() {
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+
+        if (file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var imageUrl = response['image_url'];
+                    if (imageUrl) {
+                        var imagePreview = document.createElement('img');
+                        imagePreview.src = imageUrl;
+                        document.body.appendChild(imagePreview);
+                    }
+                } else {
+                    console.error('Upload failed');
+                }
+            };
+            xhr.send(formData);
+        }
+    });
+</script>
+
+</body>
+</html>
